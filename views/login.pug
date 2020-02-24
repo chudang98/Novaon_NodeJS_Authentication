@@ -1,0 +1,18 @@
+extends base
+
+block content
+    form#form-login(action='/login' method='POST')
+        if error
+            h4#notify_login.text-danger=message
+        .form-group
+            label(for='exampleInputEmail1') Email address
+            input#email.form-control(name='email' type='email', aria-describedby='emailHelp', placeholder='Enter email')
+            small#emailError.form-text.text-danger
+        .form-group
+            label(for='exampleInputPassword1') Password
+            input#password.form-control(name='password' type='password', placeholder='Password')
+            small#passwordError.form-text.text-danger
+        button#submit_login.btn.btn-primary(type='button') Login
+
+block script
+    script(src='/script/login.js')
