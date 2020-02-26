@@ -1,4 +1,5 @@
 /* eslint-disable */
+// import axios from 'axios';
 
 document.addEventListener('DOMContentLoaded', event => {
   let submit = document.querySelector('#submit_login');
@@ -12,7 +13,6 @@ document.addEventListener('DOMContentLoaded', event => {
 
     notifyEmail.innerHTML = '';
     notifyPassword.innerHTML = '';
-
     if (statusEmail.status == false) {
       notifyEmail.innerHTML = statusEmail.message;
       return;
@@ -21,11 +21,31 @@ document.addEventListener('DOMContentLoaded', event => {
       notifyPassword.innerHTML = statusPassword.message;
       return;
     }
-    let form = document.querySelector('#form-login');
-    form.submit();
+    login(email, password);
   });
 });
 
+const login = async (email, password) => {
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: 'http://localhost:3000/api/login',
+      data: {
+        email,
+        password
+      }
+    });
+    console.log(res.data);
+    if (res.data.status === 'success') {
+      location.assign('/');
+    }
+  } catch (err) {
+    console.log(err);
+
+    document.querySelector('#error_login').innerHTML =
+      err.response.data.message;
+  }
+};
 function validateEmail(email) {
   if (email == null || email == '')
     return {

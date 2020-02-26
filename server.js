@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const displayRoutes = require('express-routemap');
 
 dotenv.config({ path: './config.env' });
 
@@ -10,6 +11,7 @@ let port = process.env.PORT,
 // let DB = database
 //   .replace('<USERNAME>', username)
 //   .replace('<PASSWORD>', password);
+
 let DB = process.env.DATABASE_LOCAL;
 mongoose
   .connect(DB, {
@@ -28,4 +30,6 @@ const app = require('./app');
 
 const server = app.listen(port, () => {
   console.log(`App running on port ${port}...`);
+  displayRoutes(app);
+  displayRoutes(app, 'route-table.log');
 });

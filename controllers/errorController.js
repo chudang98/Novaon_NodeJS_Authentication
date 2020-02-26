@@ -4,7 +4,8 @@
 const AppError = require('./../ultis/appError');
 
 const loginErr = (err, res) => {
-  return res.status(400).render('login', {
+  return res.status(400).json({
+    status: 'fail',
     error: true,
     message: err.message
   });
@@ -17,4 +18,8 @@ module.exports = (err, req, res, next) => {
   // let error = { ...err };
 
   if (err.nameErr == 'login_err') loginErr(err, res);
+
+  res.status(500).json({
+    message: res.message
+  });
 };

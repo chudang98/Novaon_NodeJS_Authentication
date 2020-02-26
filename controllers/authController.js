@@ -36,54 +36,70 @@ const sendTokenCookie = (user, res) => {
   res.cookie('jwt', token, cookieOption);
 };
 
-const acceptLogin = (user, next, res) => {
-  // let token = createToken(user._id);
-  // sendTokenCookie(user, res);
-  return res.status(200).json({
-    status: 'success'
-    // token,
-    // user
+const acceptLogin = (user, res) => {
+  sendTokenCookie(user, res);
+  res.status(200).json({
+    status: 'success',
+    message: 'Login thành công'
   });
 };
 
 exports.login = catchAsyncFn(async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    const err = new AppError('Email hoặc mật khẩu rỗng !', 401, 'login_err');
-    return next(err);
+    return next(new AppError('Email hoặc mật khẩu rỗng !', 401, 'login_err'));
   }
 
   // 2.Check account tồn tại và đúng password
   const user = await User.findOne({ email }).select('+password');
   if (!user || !(await user.isCorrectPassword(password, user.password))) {
-    const err = new AppError(
-      'Email hoặc mật khẩu không đúng !',
-      401,
-      'login_err'
+    return next(
+      new AppError('Email hoặc mật khẩu không đúng !', 401, 'login_err')
     );
-    return next(err);
   }
-  // acceptLogin(user, next, res);
+  acceptLogin(user, res);
 });
-
-exports.getLogin = (req, res) => {
-  res.status(200).render('login');
-};
 
 // TODO: REGIST ACCOUNT
 acceptSignup = (user, next, res) => {
+  res.locals.user = user;
   return res.status(200).json({
     status: 'success',
-    user
+    user,
+    message: 'Đăng ký thành công !'
   });
+};
+
+exports.isLogin = async (req, res, next) => {
+  if (req.cookies.jwt) {
+    try {
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
+      const user = await User.findById(decoded.id);
+
+      if (!user) return next();
+
+      if (user.changedPasswordAfter(decoded.iat)) return next();
+
+      res.locals.user = user;
+      return next();
+    } catch (err) {
+      return next();
+    }
+  }
+  next();
 };
 
 exports.signup = catchAsyncFn(async (req, res, next) => {
   console.log(req.body);
   let user = await User.create({
-    userName: req.body.name,
+    userName: req.body.username,
     email: req.body.email,
     password: req.body.password
   });
+  if (!user) console.log('User đã tồn tại');
+  else console.log(user);
   acceptSignup(user, next, res);
 });

@@ -1,20 +1,27 @@
 extends base
 
 block content
-    form(action='/login' method='POST')
-        .form-group
-            label(for='exampleInputEmail1') Email address
-            input#email.form-control(name='email' type='email', aria-describedby='emailHelp', placeholder='Enter email')
-            small#emailError.form-text.text-danger
-        .form-group
-            label(for='exampleInputPassword1') Username
-            input#password.form-control(name='username' type='text', placeholder='Username')
-            small#passwordError.form-text.text-danger
-        .form-group
-            label(for='exampleInputPassword1') Password
-            input#password.form-control(name='password' type='password', placeholder='Password')
-            small#passwordError.form-text.text-danger
-        button#submit_login.btn.btn-primary(type='button') Login
-
+	.container
+		.row
+			form.col-5
+				small#error_signup.form-text.text-danger
+				.form-group
+					label Email address
+					input#email.form-control(type='email' name='email')
+					small#emailError.form-text.text-danger
+				.form-group
+					label Username
+					input#username.form-control(type='text' name='username')
+					small#usernameError.form-text.text-danger
+				.form-group
+					labe Password
+					input#password.form-control(type='password' name='password')
+					small#passwordError.form-text.text-danger
+				.form-group
+					labe Confirm password
+					input#confirmpass.form-control(type='password')
+					small#confirmpassError.form-text.text-danger
+				button#submit_login.btn.btn-primary(type='button') Submit
+			
 block script
-    script(src='/script/signup.js')
+	script(src='/script/signup.js')
