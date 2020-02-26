@@ -1,4 +1,16 @@
 extends base
 
 block content
-    h1 Hello from homepage
+	if user
+		-var page = tours.length/3
+		-var surplus = page%3
+		-for(let i = 0; i < surplus == 0 ? page : page + 1; i++){
+			h1 Hello `${i}`
+		-}
+		//- .container
+		//- 	#carouselExampleIndicators.carousel.slide(data-ride='carousel')
+		//- 		ol.carousel-indicators
+		//- 			li(class=`${i == 0 ? `active`:``}` data-target='#carouselExampleIndicators', data-slide-to=`${i}`)
+		//- 		.carousel-inner.bg-dark   
+	else
+		h1 Hello from homepage

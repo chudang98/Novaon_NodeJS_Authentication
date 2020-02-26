@@ -37,13 +37,10 @@ const login = async (email, password) => {
         password
       }
     });
-    console.log(res.data);
     if (res.data.status === 'success') {
       location.assign('/');
     }
   } catch (err) {
-    console.log(err);
-
     document.querySelector('#error_login').innerHTML =
       err.response.data.message;
   }

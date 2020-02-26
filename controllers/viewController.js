@@ -1,7 +1,13 @@
+const Tour = require('./../models/tourModel');
+
 const checkLogin = res => {
   if (res.locals.user) return res.redirect('/');
 };
-exports.homeView = (req, res) => {
+exports.homeView = async (req, res) => {
+  if (res.locals.user) {
+    const tours = await Tour.find({});
+    res.locals.tours = tours;
+  }
   res.status(200).render('home', {
     status: 'success'
   });

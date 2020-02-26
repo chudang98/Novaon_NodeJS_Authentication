@@ -10,7 +10,10 @@ const cryp = require('crypto');
 const jwt = require('jsonwebtoken');
 
 const { promisify } = require('util');
+
 const User = require('./../models/userModel');
+const Tour = require('./../models/tourModel');
+
 const catchAsyncFn = require('./../ultis/catchAsync');
 const AppError = require('./../ultis/appError');
 
@@ -141,5 +144,9 @@ exports.requiredLogin = catchAsyncFn(async (req, res, next) => {
 });
 
 exports.getDashboard = catchAsyncFn(async (req, res, next) => {
-  return res.status(200).json({});
+  const tours = await Tour.find({});
+  res.locals.tours = tours;
+  return res.status(200).json({
+    page: tours.length
+  });
 });

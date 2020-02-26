@@ -5,74 +5,135 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+      .col-3{
+        padding: 0;
+      }
+      .card-tour{
+        height: 500px;
+      }
+      .card-body{
+        background-position: center;
+        background-size: auto 500px;
+      }
+    </style>
     <title>Document</title>
 </head>
 <body>
-    <nav class="navbar bg-dark navbar-expand">
-        <div class="container">
-            <a href="/" class="text-light navbar-brand">Homepage</a>
+  <div class="container">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
 
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="" class="btn btn-primary ml-1" role="button">Sign up</a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="btn btn-success ml-1" role="button">Log in</a>
-                </li>
-            </ul>
+
+      <div class="carousel-inner bg-dark">
+
+        <div class="carousel-item active">
+          <div class="row p-4 d-flex justify-content-around">
+            <div class="card card-tour col-3">
+              <!-- <img src="img/tours/tour-9-1.jpg" class="card-img-top" alt="..."> -->
+              <div class="card-body" style="background-image: url('./img/tours/tour-1-1.jpg')">
+                <h5 class="card-title">Card 1</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+            <div class="card card-tour col-3 p-2 mb-3 mt-3">
+              <!-- <img src="img/tours/tour-9-1.jpg" class="card-img-top" alt="..."> -->
+              <div class="card-body">
+                <h5 class="card-title">Card 2</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+            <div class="card card-tour col-3 p-2 mb-3 mt-3">
+              <!-- <img src="img/tours/tour-9-1.jpg" class="card-img-top" alt="..."> -->
+              <div class="card-body">
+                <h5 class="card-title">Card 3</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
         </div>
-    </nav>
 
-
-    <div class="container">
-        <div class="row">
-            <form class="col-5">
-                <small id="" class="form-text text-danger">We'll never share your email with anyone else.</small>
-                <div class="form-group">
-                  <label>Email address</label>
-                  <input type="email" class="form-control" id="" name="email">
-                  <small id="" class="form-text text-danger">We'll never share your email with anyone else.</small>
-                </div>
-                <div class="form-group">
-                  <labe>Password</labe>
-                  <input type="password" class="form-control" id="" name="password">
-                  <small id="" class="form-text text-danger">We'll never share your email with anyone else.</small>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+        <div class="carousel-item">
+          <div class="row p-4 d-flex justify-content-around">
+            <div class="card card-tour col-3 p-2 mb-3 mt-3">
+              <!-- <img src="img/tours/tour-9-1.jpg" class="card-img-top" alt="..."> -->
+              <div class="card-body">
+                <h5 class="card-title">Card 4</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+            <div class="card card-tour col-3 p-2 mb-3 mt-3">
+              <!-- <img src="img/tours/tour-9-1.jpg" class="card-img-top" alt="..."> -->
+              <div class="card-body">
+                <h5 class="card-title">Card 5</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+            <div class="card card-tour col-3 p-2 mb-3 mt-3">
+              <!-- <img src="img/tours/tour-9-1.jpg" class="card-img-top" alt="..."> -->
+              <div class="card-body">
+                <h5 class="card-title">Card 6</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
         </div>
+        
+        <div class="carousel-item">
+          <div class="row p-4 d-flex justify-content-around">
+            <div class="card card-tour col-3 p-2 mb-3 mt-3">
+              <!-- <img src="img/tours/tour-9-1.jpg" class="card-img-top" alt="..."> -->
+              <div class="card-body">
+                <h5 class="card-title">Card 7</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+            <div class="card card-tour col-3 p-2 mb-3 mt-3">
+              <!-- <img src="img/tours/tour-9-1.jpg" class="card-img-top" alt="..."> -->
+              <div class="card-body">
+                <h5 class="card-title">Card 8</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+            <div class="card card-tour col-3 p-2 mb-3 mt-3">
+              <!-- <img src="img/tours/tour-9-1.jpg" class="card-img-top" alt="..."> -->
+              <div class="card-body">
+                <h5 class="card-title">Card 9</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" style="width: 40px">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" style="width: 40px">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+
     </div>
+  </div>
 
-    <div class="container">
-        <div class="row">
-            <form class="col-5">
-                <small id="" class="form-text text-danger">We'll never share your email with anyone else.</small>
-                <div class="form-group">
-                  <label>Email address</label>
-                  <input type="email" class="form-control" id="" name="email">
-                  <small id="" class="form-text text-danger">We'll never share your email with anyone else.</small>
-                </div>
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="email" class="form-control" id="" name="username">
-                    <small id="" class="form-text text-danger">We'll never share your email with anyone else.</small>
-                  </div>
-                <div class="form-group">
-                  <labe>Password</labe>
-                  <input type="password" class="form-control" id="" name="password">
-                  <small id="" class="form-text text-danger">We'll never share your email with anyone else.</small>
-                </div>
-                <div class="form-group">
-                    <labe>Confirm password</labe>
-                    <input type="password" class="form-control" id="" name="password">
-                    <small id="" class="form-text text-danger">We'll never share your email with anyone else.</small>
-                  </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
