@@ -24,22 +24,26 @@ document.addEventListener('DOMContentLoaded', event => {
     notifyConfirmPassword.innerHTML = '';
     notifyUsername.innerHTML = '';
 
+    let check = true;
+
     if (statusUsername.status == false) {
       notifyUsername.innerHTML = statusUsername.message;
+      check = false;
     }
     if (statusEmail.status == false) {
       notifyEmail.innerHTML = statusEmail.message;
-      return;
+      check = false;
     }
     if (statusPassword.status == false) {
       notifyPassword.innerHTML = statusPassword.message;
-      return;
+      check = false;
     }
     if (statusConfirmPass.status == false) {
-      notifyUsername.innerHTML = statusConfirmPass.message;
-      return;
+      notifyConfirmPassword.innerHTML = statusConfirmPass.message;
+      check = false;
     }
-    signup(username, email, password);
+
+    if (check == true) signup(username, email, password);
   });
 });
 
@@ -54,13 +58,10 @@ const signup = async (username, email, password) => {
         password
       }
     });
-    console.log(res.data);
     if (res.data.status === 'success') {
       location.assign('/');
     }
   } catch (err) {
-    console.log(err);
-
     document.querySelector('#error_signup').innerHTML =
       err.response.data.message;
   }
@@ -70,13 +71,13 @@ function validateEmail(email) {
   if (email == null || email == '')
     return {
       status: false,
-      message: 'Email trống !'
+      message: 'Email is empty'
     };
   var re = RegExp('^[a-z0-9](.?[a-z0-9]){5,}@g(oogle)?mail.com$');
   if (!re.test(email))
     return {
       status: false,
-      message: 'Email bạn nhập vào không đúng !'
+      message: 'Invalid email address'
     };
   return {
     status: true,
@@ -88,7 +89,7 @@ function validatePassword(password) {
   if (password == null || password == '')
     return {
       status: false,
-      message: 'Password trống !'
+      message: 'Password is empty.'
     };
   var t = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$';
   var re = new RegExp(t);
@@ -96,7 +97,7 @@ function validatePassword(password) {
     return {
       status: false,
       message:
-        'Password bạn nhập vào không đúng định dạng! Cần có cả chữ thường, chữ hoa và số'
+        'Password is not valid. Password minimum 8 characters, at least one uppercase letter (A - Z), one lowercase letter (a - z) and one number (0 - 9)'
     };
   return {
     status: true,
@@ -106,19 +107,18 @@ function validatePassword(password) {
 
 function validateUsername(username) {
   let re = new RegExp(
-    '^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$'
+    '^(?=.{8,20}$)(?![ .])(?!.*[ .]{2})[a-zA-Z0-9. ]+(?<![ .])$'
   );
   if (username == '' || username == null) {
     return {
-      status: 'false',
-      message: 'Username không được để rỗng.'
+      status: false,
+      message: 'Username is empty'
     };
   }
   if (!re.test(username))
     return {
       status: false,
-      message:
-        'Username sai định dạng ! Chỉ được chứa chữ cái, dấu cách, dấu chấm'
+      message: 'Username is not valid.'
     };
   return {
     status: true,
@@ -130,12 +130,12 @@ function validateConfirmPassword(password, confirmpass) {
   if (confirmpass == null || confirmpass == '')
     return {
       status: false,
-      message: 'Chưa nhập xác nhận mật khẩu !'
+      message: 'Confirm password is empty'
     };
   if (confirmpass.localeCompare(password) != 0) {
     return {
       status: false,
-      message: 'Mật khẩu không đúng !'
+      message: 'Confirm password wrong'
     };
   }
 

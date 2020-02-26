@@ -47,14 +47,18 @@ const acceptLogin = (user, res) => {
 exports.login = catchAsyncFn(async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return next(new AppError('Email hoặc mật khẩu rỗng !', 401, 'login_err'));
+    return next(new AppError('Email or password is empty !', 401, 'login_err'));
   }
 
   // 2.Check account tồn tại và đúng password
   const user = await User.findOne({ email }).select('+password');
   if (!user || !(await user.isCorrectPassword(password, user.password))) {
     return next(
-      new AppError('Email hoặc mật khẩu không đúng !', 401, 'login_err')
+      new AppError(
+        'Your email or password is wrong. Please try again',
+        401,
+        'login_err'
+      )
     );
   }
   acceptLogin(user, res);
@@ -62,8 +66,8 @@ exports.login = catchAsyncFn(async (req, res, next) => {
 
 // TODO: REGIST ACCOUNT
 acceptSignup = (user, next, res) => {
-  res.locals.user = user;
-  return res.status(200).json({
+  sendTokenCookie(user, res);
+  res.status(200).json({
     status: 'success',
     user,
     message: 'Đăng ký thành công !'
@@ -94,12 +98,48 @@ exports.isLogin = async (req, res, next) => {
 
 exports.signup = catchAsyncFn(async (req, res, next) => {
   console.log(req.body);
-  let user = await User.create({
+  let user = new User({
     userName: req.body.username,
     email: req.body.email,
     password: req.body.password
   });
-  if (!user) console.log('User đã tồn tại');
-  else console.log(user);
-  acceptSignup(user, next, res);
+
+  try {
+    await user.save();
+    acceptSignup(user, next, res);
+  } catch (err) {
+    return next(
+      new AppError(
+        'This email is already exists. Please choose other email !',
+        401,
+        'signup_err'
+      )
+    );
+  }
+});
+
+exports.requiredLogin = catchAsyncFn(async (req, res, next) => {
+  if (req.cookies.jwt) {
+    try {
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
+      const user = await User.findById(decoded.id);
+
+      if (!user) return res.redirect('/login');
+
+      if (user.changedPasswordAfter(decoded.iat)) return res.redirect('/login');
+
+      res.locals.user = user;
+      return next();
+    } catch (err) {
+      return res.redirect('/login');
+    }
+  }
+  return res.redirect('/login');
+});
+
+exports.getDashboard = catchAsyncFn(async (req, res, next) => {
+  return res.status(200).json({});
 });

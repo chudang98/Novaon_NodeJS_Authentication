@@ -11,17 +11,19 @@ document.addEventListener('DOMContentLoaded', event => {
     let notifyEmail = document.querySelector('#emailError'),
       notifyPassword = document.querySelector('#passwordError');
 
+    let check = true;
+
     notifyEmail.innerHTML = '';
     notifyPassword.innerHTML = '';
     if (statusEmail.status == false) {
       notifyEmail.innerHTML = statusEmail.message;
-      return;
+      check = false;
     }
     if (statusPassword.status == false) {
       notifyPassword.innerHTML = statusPassword.message;
-      return;
+      check = false;
     }
-    login(email, password);
+    if (check == true) login(email, password);
   });
 });
 
@@ -50,13 +52,13 @@ function validateEmail(email) {
   if (email == null || email == '')
     return {
       status: false,
-      message: 'Email trống !'
+      message: 'Email is empty.'
     };
   var re = RegExp('^[a-z0-9](.?[a-z0-9]){5,}@g(oogle)?mail.com$');
   if (!re.test(email))
     return {
       status: false,
-      message: 'Email bạn nhập vào không đúng !'
+      message: 'Invalid email address.'
     };
   return {
     status: true,
@@ -68,14 +70,14 @@ function validatePassword(password) {
   if (password == null || password == '')
     return {
       status: false,
-      message: 'Password trống !'
+      message: 'Password is empty.'
     };
   var t = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$';
   var re = new RegExp(t);
   if (!re.test(password))
     return {
       status: false,
-      message: 'Password bạn nhập vào không đúng !'
+      message: 'Password is not valid.'
     };
   return {
     status: true,

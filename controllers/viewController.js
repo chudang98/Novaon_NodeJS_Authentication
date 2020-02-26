@@ -1,6 +1,5 @@
-const checkUser = res => {
-  if (res.locals.user) return true;
-  return false;
+const checkLogin = res => {
+  if (res.locals.user) return res.redirect('/');
 };
 exports.homeView = (req, res) => {
   res.status(200).render('home', {
@@ -9,12 +8,14 @@ exports.homeView = (req, res) => {
 };
 
 exports.loginView = (req, res) => {
+  checkLogin(res);
   res.status(200).render('login', {
     status: 'success'
   });
 };
 
 exports.logoutAcc = (req, res) => {
+  // checkLogin(res);
   if (req.cookies.jwt) {
     console.log('Have cookie JWT');
     res.clearCookie('jwt');
@@ -23,6 +24,7 @@ exports.logoutAcc = (req, res) => {
 };
 
 exports.signupView = (req, res) => {
+  checkLogin(res);
   res.status(200).render('signup', {
     status: 'success'
   });
