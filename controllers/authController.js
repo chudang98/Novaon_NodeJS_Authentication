@@ -147,6 +147,7 @@ exports.getDashboard = catchAsyncFn(async (req, res, next) => {
   const tours = await Tour.find({});
   res.locals.tours = tours;
   return res.status(200).json({
-    page: tours.length
+    page: tours.length,
+    tour: tours[8]
   });
 });

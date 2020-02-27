@@ -8,6 +8,7 @@ const router = express.Router();
 router.use(auth.isLogin);
 
 router.get('/', viewController.homeView);
+router.get('/tour/:tour_id', viewController.tourView);
 router.get('/login', viewController.loginView);
 router.get('/aaaaa', viewController.logoutAcc);
 router.get('/signup', viewController.signupView);

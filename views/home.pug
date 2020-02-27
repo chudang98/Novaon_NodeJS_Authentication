@@ -1,16 +1,42 @@
 extends base
 
+mixin cardTour(tour)
+	.card.card-tour.col-3.p-2.mb-3.mt-3
+		.mh-100.card-body(style=`background-image: url('./img/tours/${tour.imageCover}')`)
+			h5.text-shadow.h-25.card-title= tour.name
+			p.text-shadow.h-25= tour.summary
+			a.btn.btn-primary(href=`./tour/${tour._id}`) See detail
 block content
 	if user
-		-var page = tours.length/3
-		-var surplus = page%3
-		-for(let i = 0; i < surplus == 0 ? page : page + 1; i++){
-			h1 Hello `${i}`
-		-}
-		//- .container
-		//- 	#carouselExampleIndicators.carousel.slide(data-ride='carousel')
-		//- 		ol.carousel-indicators
-		//- 			li(class=`${i == 0 ? `active`:``}` data-target='#carouselExampleIndicators', data-slide-to=`${i}`)
-		//- 		.carousel-inner.bg-dark   
+		.bg-info
+			.container
+				-let number = tours.length
+				-let page = number%3 == 0 ? number/3 : (number/3) + 1
+				-let count = 0, counts = 0
+				#carouselExampleIndicators.carousel.slide(data-ride='carousel')
+					ol.carousel-indicators
+						while count < page
+							li(data-target='#carouselExampleIndicators', data-slide-to=`${count++}`)
+					.carousel-inner
+						while counts < number
+							if counts == 0
+								.carousel-item.active
+									.row.p-4.d-flex.justify-content-around
+										+cardTour(tours[counts++])
+										+cardTour(tours[counts++])
+										+cardTour(tours[counts++])
+							else
+								.carousel-item
+									.row.p-4.d-flex.justify-content-around
+										+cardTour(tours[counts++])
+										+cardTour(tours[counts++])
+										+cardTour(tours[counts++])
+					a.carousel-control-prev(href='#carouselExampleIndicators', role='button', data-slide='prev', style='width: 40px')
+						span.carousel-control-prev-icon(aria-hidden='true')
+						span.sr-only Previous
+					a.carousel-control-next(href='#carouselExampleIndicators', role='button', data-slide='next', style='width: 40px')
+						span.carousel-control-next-icon(aria-hidden='true')
+						span.sr-only Next
+
 	else
 		h1 Hello from homepage
